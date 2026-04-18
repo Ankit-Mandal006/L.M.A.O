@@ -9,6 +9,7 @@ public class TrollTriggerEditor : Editor
     private bool showTriggerSettings = true;
     private bool showMovementSettings = true;
     private bool showPathSettings = true;
+    private bool showCollisionSettings = true;
     private bool showVisualSettings = true;
     private bool showAudioSettings = false;
 
@@ -32,16 +33,16 @@ public class TrollTriggerEditor : Editor
         GUIStyle headerStyle = new GUIStyle(EditorStyles.boldLabel);
         headerStyle.fontSize = 16;
         headerStyle.alignment = TextAnchor.MiddleCenter;
-        EditorGUILayout.LabelField("🎭 TROLL TRIGGER SYSTEM 🎭", headerStyle);
+        EditorGUILayout.LabelField("TROLL TRIGGER SYSTEM", headerStyle);
         EditorGUILayout.Space(10);
 
         // Quick Action Buttons
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("🎯 Create Trigger Zone", GUILayout.Height(30)))
+        if (GUILayout.Button("Create Trigger Zone", GUILayout.Height(30)))
         {
             CreateOrAdjustTriggerZone();
         }
-        if (GUILayout.Button("➕ Add Waypoint", GUILayout.Height(30)))
+        if (GUILayout.Button("Add Waypoint", GUILayout.Height(30)))
         {
             AddWaypoint();
         }
@@ -50,7 +51,7 @@ public class TrollTriggerEditor : Editor
         EditorGUILayout.Space(10);
 
         // Trigger Settings
-        showTriggerSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showTriggerSettings, "⚡ Trigger Settings");
+        showTriggerSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showTriggerSettings, "Trigger Settings");
         if (showTriggerSettings)
         {
             EditorGUI.indentLevel++;
@@ -75,7 +76,7 @@ public class TrollTriggerEditor : Editor
         EditorGUILayout.Space(5);
 
         // Movement Settings
-        showMovementSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showMovementSettings, "🚀 Movement Settings");
+        showMovementSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showMovementSettings, "Movement Settings");
         if (showMovementSettings)
         {
             EditorGUI.indentLevel++;
@@ -100,7 +101,7 @@ public class TrollTriggerEditor : Editor
         EditorGUILayout.Space(5);
 
         // Path Settings
-        showPathSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showPathSettings, "🛤️ Path Settings");
+        showPathSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showPathSettings, "Path Settings");
         if (showPathSettings)
         {
             EditorGUI.indentLevel++;
@@ -122,7 +123,7 @@ public class TrollTriggerEditor : Editor
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PropertyField(pathPointsProp.GetArrayElementAtIndex(i), new GUIContent($"Point {i + 1}"));
                 
-                if (GUILayout.Button("🎯", GUILayout.Width(30)))
+                if (GUILayout.Button("Select", GUILayout.Width(50)))
                 {
                     SelectWaypoint(i);
                 }
@@ -160,8 +161,41 @@ public class TrollTriggerEditor : Editor
 
         EditorGUILayout.Space(5);
 
+        // Player Collision Settings
+        showCollisionSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showCollisionSettings, "Player Collision Settings");
+        if (showCollisionSettings)
+        {
+            EditorGUI.indentLevel++;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("disablePlayerOnCollision"));
+            
+            if (trollTrigger.disablePlayerOnCollision)
+            {
+                EditorGUILayout.HelpBox("When enabled, player controller will be disabled if they collide with the moving object.", MessageType.Info);
+                
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("collisionObjects"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("controllerScriptName"));
+                
+                // Helper button to auto-populate collision objects
+                EditorGUILayout.Space(5);
+                if (GUILayout.Button("Auto-Add Moving Object"))
+                {
+                    Undo.RecordObject(trollTrigger, "Auto-Add Collision Object");
+                    if (trollTrigger.movingObject != null && !trollTrigger.collisionObjects.Contains(trollTrigger.movingObject.gameObject))
+                    {
+                        trollTrigger.collisionObjects.Add(trollTrigger.movingObject.gameObject);
+                        EditorUtility.SetDirty(trollTrigger);
+                    }
+                }
+            }
+            
+            EditorGUI.indentLevel--;
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space(5);
+
         // Visual Settings
-        showVisualSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showVisualSettings, "👁️ Visual Settings");
+        showVisualSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showVisualSettings, "Visual Settings");
         if (showVisualSettings)
         {
             EditorGUI.indentLevel++;
@@ -175,7 +209,7 @@ public class TrollTriggerEditor : Editor
         EditorGUILayout.Space(5);
 
         // Audio Settings
-        showAudioSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showAudioSettings, "🔊 Audio Settings (Optional)");
+        showAudioSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showAudioSettings, "Audio Settings (Optional)");
         if (showAudioSettings)
         {
             EditorGUI.indentLevel++;
@@ -188,14 +222,14 @@ public class TrollTriggerEditor : Editor
         EditorGUILayout.Space(10);
 
         // Preset Templates
-        EditorGUILayout.LabelField("🎪 Quick Troll Presets", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Quick Troll Presets", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Popup Spikes ⬆️")) ApplyPopupSpikesPreset();
-        if (GUILayout.Button("Moving Platform ↔️")) ApplyMovingPlatformPreset();
+        if (GUILayout.Button("Popup Spikes")) ApplyPopupSpikesPreset();
+        if (GUILayout.Button("Moving Platform")) ApplyMovingPlatformPreset();
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Pushing Wall ➡️")) ApplyPushingWallPreset();
-        if (GUILayout.Button("Falling Ground ⬇️")) ApplyFallingGroundPreset();
+        if (GUILayout.Button("Pushing Wall")) ApplyPushingWallPreset();
+        if (GUILayout.Button("Falling Ground")) ApplyFallingGroundPreset();
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space(10);
@@ -203,7 +237,7 @@ public class TrollTriggerEditor : Editor
         // Test button
         if (Application.isPlaying)
         {
-            if (GUILayout.Button("🧪 TEST TRIGGER NOW", GUILayout.Height(40)))
+            if (GUILayout.Button("TEST TRIGGER NOW", GUILayout.Height(40)))
             {
                 trollTrigger.ResetTrigger();
                 trollTrigger.SendMessage("Activate");

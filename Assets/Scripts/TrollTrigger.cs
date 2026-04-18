@@ -40,6 +40,16 @@ public class TrollTrigger : MonoBehaviour
     [Tooltip("Should the object return to start position?")]
     public bool returnToStart = false;
 
+    [Header("Player Collision Settings")]
+    [Tooltip("Disable player controller when hit by moving objects")]
+    public bool disablePlayerOnCollision = false;
+    
+    [Tooltip("Game objects with colliders that should disable player on collision")]
+    public List<GameObject> collisionObjects = new List<GameObject>();
+    
+    [Tooltip("Name of the third person controller script to disable")]
+    public string controllerScriptName = "ThirdPersonController";
+
     [Header("Visual Settings")]
     [Tooltip("Color of the trigger zone gizmo")]
     public Color triggerColor = new Color(1f, 0f, 0f, 0.3f);
@@ -60,14 +70,17 @@ public class TrollTrigger : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Coroutine movementCoroutine;
+    private bool isMoving = false;
+    private MonoBehaviour playerController;
+    private List<CollisionDetector> collisionDetectors = new List<CollisionDetector>();
 
     public enum MovementType
     {
-        MoveToTarget,           // Move to single target point
-        FollowPath,             // Follow waypoint path
-        PingPong,              // Move back and forth between two points
-        RotateInPlace,         // Rotate without moving
-        ScaleChange            // Change scale
+        MoveToTarget,
+        FollowPath,
+        PingPong,
+        RotateInPlace,
+        ScaleChange
     }
 
     private void Start()
@@ -109,6 +122,79 @@ public class TrollTrigger : MonoBehaviour
                 renderer.enabled = false;
             }
         }
+
+        // Set up collision detection on specified objects
+        if (disablePlayerOnCollision)
+        {
+            SetupCollisionDetectors();
+        }
+    }
+
+    private void SetupCollisionDetectors()
+    {
+        // If no objects specified, use the moving object
+        if (collisionObjects.Count == 0 && movingObject != null)
+        {
+            collisionObjects.Add(movingObject.gameObject);
+        }
+
+        // Add collision detector to each object
+        foreach (GameObject obj in collisionObjects)
+        {
+            if (obj != null)
+            {
+                CollisionDetector detector = obj.GetComponent<CollisionDetector>();
+                if (detector == null)
+                {
+                    detector = obj.AddComponent<CollisionDetector>();
+                }
+                detector.Initialize(this, targetTag);
+                collisionDetectors.Add(detector);
+            }
+        }
+    }
+
+    public void OnPlayerCollision(GameObject player)
+    {
+        if (!disablePlayerOnCollision || !isMoving) return;
+
+        DisablePlayerController(player);
+    }
+
+    private void DisablePlayerController(GameObject player)
+    {
+        if (playerController == null)
+        {
+            // Try to find the controller script
+            Component[] components = player.GetComponents<Component>();
+            foreach (Component comp in components)
+            {
+                if (comp.GetType().Name == controllerScriptName)
+                {
+                    playerController = comp as MonoBehaviour;
+                    break;
+                }
+            }
+        }
+
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+            Debug.Log("Player controller disabled due to collision with moving object");
+        }
+        else
+        {
+            Debug.LogWarning("Could not find " + controllerScriptName + " script on player");
+        }
+    }
+
+    private void EnablePlayerController()
+    {
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+            Debug.Log("Player controller re-enabled");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -138,6 +224,8 @@ public class TrollTrigger : MonoBehaviour
                 StopCoroutine(movementCoroutine);
             }
             
+            isMoving = false;
+            
             // Return to start position
             movementCoroutine = StartCoroutine(MoveToTarget(startPosition));
             
@@ -158,6 +246,7 @@ public class TrollTrigger : MonoBehaviour
     private void Activate()
     {
         hasTriggered = true;
+        isMoving = true;
         
         // Play activation sound
         if (audioSource != null && activationSound != null)
@@ -257,7 +346,9 @@ public class TrollTrigger : MonoBehaviour
             currentPoint = 0;
         } while (loopPath);
 
+        isMoving = false;
         StopMovementSound();
+        EnablePlayerController();
     }
 
     private IEnumerator PingPongMovement()
@@ -277,7 +368,9 @@ public class TrollTrigger : MonoBehaviour
             if (!reusable) break;
         }
 
+        isMoving = false;
         StopMovementSound();
+        EnablePlayerController();
     }
 
     private IEnumerator RotateToTarget(Quaternion targetRotation)
@@ -295,7 +388,9 @@ public class TrollTrigger : MonoBehaviour
         }
 
         movingObject.rotation = targetRotation;
+        isMoving = false;
         StopMovementSound();
+        EnablePlayerController();
     }
 
     private IEnumerator ChangeScale(Vector3 targetScale)
@@ -313,7 +408,9 @@ public class TrollTrigger : MonoBehaviour
         }
 
         movingObject.localScale = targetScale;
+        isMoving = false;
         StopMovementSound();
+        EnablePlayerController();
     }
 
     private void StopMovementSound()
@@ -328,12 +425,14 @@ public class TrollTrigger : MonoBehaviour
     public void ResetTrigger()
     {
         hasTriggered = false;
+        isMoving = false;
         if (movementCoroutine != null)
         {
             StopCoroutine(movementCoroutine);
         }
         movingObject.position = startPosition;
         movingObject.rotation = startRotation;
+        EnablePlayerController();
     }
 
     private void OnDrawGizmos()
@@ -377,6 +476,27 @@ public class TrollTrigger : MonoBehaviour
             {
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(pathPoints[pathPoints.Count - 1].position, pathPoints[0].position);
+            }
+        }
+    }
+
+    // Helper class for collision detection
+    private class CollisionDetector : MonoBehaviour
+    {
+        private TrollTrigger parentTrigger;
+        private string playerTag;
+
+        public void Initialize(TrollTrigger trigger, string tag)
+        {
+            parentTrigger = trigger;
+            playerTag = tag;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(playerTag))
+            {
+                parentTrigger.OnPlayerCollision(collision.gameObject);
             }
         }
     }
