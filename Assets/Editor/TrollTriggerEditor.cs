@@ -9,6 +9,7 @@ public class TrollTriggerEditor : Editor
     private bool showTriggerSettings = true;
     private bool showMovementSettings = true;
     private bool showPathSettings = true;
+    private bool showDeathSettings = true;
     private bool showCollisionSettings = true;
     private bool showVisualSettings = true;
     private bool showAudioSettings = false;
@@ -138,6 +139,13 @@ public class TrollTriggerEditor : Editor
             EditorGUILayout.Space(5);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("loopPath"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("returnToStart"));
+            
+            // Show return settings conditionally
+            if (trollTrigger.returnToStart)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("returnDelay"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("returnOnPlayerDeath"));
+            }
 
             // Helper buttons
             EditorGUILayout.Space(5);
@@ -155,6 +163,62 @@ public class TrollTriggerEditor : Editor
             }
             EditorGUILayout.EndHorizontal();
 
+            EditorGUI.indentLevel--;
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space(5);
+
+        // Death Settings
+        showDeathSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showDeathSettings, "Death Settings");
+        if (showDeathSettings)
+        {
+            EditorGUI.indentLevel++;
+            
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("killPlayerOnReturn"));
+            
+            if (trollTrigger.killPlayerOnReturn)
+            {
+                EditorGUILayout.HelpBox("⚠️ DANGER: Object becomes deadly when returning! Player will die on contact.", MessageType.Warning);
+                
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("killDelay"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("deadlyTag"));
+                
+                // Visual warning
+                EditorGUILayout.Space(5);
+                GUIStyle warningStyle = new GUIStyle(EditorStyles.boldLabel);
+                warningStyle.normal.textColor = Color.red;
+                EditorGUILayout.LabelField("⚡ Object will kill player during return!", warningStyle);
+                
+                // Helpful info layout logic
+                EditorGUILayout.Space(5);
+                string deathTriggerText = trollTrigger.returnOnPlayerDeath 
+                    ? "1. Player exits trigger zone (or dies)" 
+                    : "1. Player exits trigger zone";
+
+                EditorGUILayout.HelpBox(
+                    $"How it works:\n" +
+                    $"{deathTriggerText}\n" +
+                    "2. Wait 'Return Delay' seconds\n" +
+                    "3. Wait 'Kill Delay' seconds\n" +
+                    "4. Object becomes deadly (tagged as '" + trollTrigger.deadlyTag + "')\n" +
+                    "5. Object returns to start position\n" +
+                    "6. Player dies if touched during return",
+                    MessageType.Info
+                );
+                
+                // Ensure moving object has a trigger collider
+                EditorGUILayout.Space(5);
+                if (GUILayout.Button("Setup Death Collision (Required)"))
+                {
+                    SetupDeathCollision();
+                }
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Object is safe. Enable 'Kill Player On Return' to make it deadly.", MessageType.Info);
+            }
+            
             EditorGUI.indentLevel--;
         }
         EditorGUILayout.EndFoldoutHeaderGroup();
@@ -231,6 +295,10 @@ public class TrollTriggerEditor : Editor
         if (GUILayout.Button("Pushing Wall")) ApplyPushingWallPreset();
         if (GUILayout.Button("Falling Ground")) ApplyFallingGroundPreset();
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Deadly Crusher")) ApplyDeadlyCrusherPreset();
+        if (GUILayout.Button("Trap Door")) ApplyTrapDoorPreset();
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space(10);
 
@@ -272,11 +340,45 @@ public class TrollTriggerEditor : Editor
         }
     }
 
+    private void SetupDeathCollision()
+    {
+        if (trollTrigger.movingObject == null)
+        {
+            EditorUtility.DisplayDialog("Error", "No moving object assigned! Assign a moving object first.", "OK");
+            return;
+        }
+
+        Undo.RecordObject(trollTrigger.movingObject.gameObject, "Setup Death Collision");
+
+        Collider[] colliders = trollTrigger.movingObject.GetComponents<Collider>();
+        bool hasTrigger = false;
+
+        foreach (Collider col in colliders)
+        {
+            if (col.isTrigger)
+            {
+                hasTrigger = true;
+                break;
+            }
+        }
+
+        if (!hasTrigger)
+        {
+            BoxCollider triggerCol = trollTrigger.movingObject.gameObject.AddComponent<BoxCollider>();
+            triggerCol.isTrigger = true;
+            EditorUtility.DisplayDialog("Success", "Added trigger collider to moving object! Player can now die when touching it.", "OK");
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Already Setup", "Moving object already has a trigger collider!", "OK");
+        }
+
+        EditorUtility.SetDirty(trollTrigger.movingObject.gameObject);
+    }
+
     private void AddWaypoint()
     {
         GameObject waypoint = new GameObject($"Waypoint_{trollTrigger.pathPoints.Count + 1}");
-        
-        // Position waypoint in front of the object
         Vector3 offset = trollTrigger.transform.forward * 5f + trollTrigger.transform.up * 2f;
         waypoint.transform.position = trollTrigger.transform.position + offset;
         waypoint.transform.SetParent(trollTrigger.transform);
@@ -364,7 +466,6 @@ public class TrollTriggerEditor : Editor
         return curve;
     }
 
-    // Preset Templates
     private void ApplyPopupSpikesPreset()
     {
         Undo.RecordObject(trollTrigger, "Apply Popup Spikes Preset");
@@ -373,6 +474,7 @@ public class TrollTriggerEditor : Editor
         trollTrigger.reusable = false;
         trollTrigger.activationDelay = 0.1f;
         trollTrigger.movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        trollTrigger.killPlayerOnReturn = false;
         
         if (trollTrigger.pathPoints.Count == 0)
         {
@@ -394,6 +496,7 @@ public class TrollTriggerEditor : Editor
         trollTrigger.moveSpeed = 3f;
         trollTrigger.reusable = true;
         trollTrigger.activationDelay = 0f;
+        trollTrigger.killPlayerOnReturn = false;
         
         if (trollTrigger.pathPoints.Count == 0)
         {
@@ -416,6 +519,8 @@ public class TrollTriggerEditor : Editor
         trollTrigger.reusable = false;
         trollTrigger.activationDelay = 0.2f;
         trollTrigger.returnToStart = true;
+        trollTrigger.returnDelay = 0f;
+        trollTrigger.killPlayerOnReturn = false;
         
         if (trollTrigger.pathPoints.Count == 0)
         {
@@ -437,6 +542,7 @@ public class TrollTriggerEditor : Editor
         trollTrigger.moveSpeed = 12f;
         trollTrigger.reusable = false;
         trollTrigger.activationDelay = 0.3f;
+        trollTrigger.killPlayerOnReturn = false;
         
         if (trollTrigger.pathPoints.Count == 0)
         {
@@ -449,5 +555,57 @@ public class TrollTriggerEditor : Editor
         
         EditorUtility.SetDirty(trollTrigger);
         EditorUtility.DisplayDialog("Preset Applied", "Falling Ground preset applied! Position the waypoint where the ground should fall to.", "OK");
+    }
+
+    private void ApplyDeadlyCrusherPreset()
+    {
+        Undo.RecordObject(trollTrigger, "Apply Deadly Crusher Preset");
+        trollTrigger.movementType = TrollTrigger.MovementType.MoveToTarget;
+        trollTrigger.moveSpeed = 10f;
+        trollTrigger.reusable = true;
+        trollTrigger.activationDelay = 0.5f;
+        trollTrigger.returnToStart = true;
+        trollTrigger.returnDelay = 1.5f;
+        trollTrigger.killPlayerOnReturn = true;
+        trollTrigger.killDelay = 0.2f;
+        trollTrigger.deadlyTag = "Enemy";
+        
+        if (trollTrigger.pathPoints.Count == 0)
+        {
+            AddWaypoint();
+            if (trollTrigger.pathPoints[0] != null)
+            {
+                trollTrigger.pathPoints[0].position = trollTrigger.transform.position + Vector3.down * 5f;
+            }
+        }
+        
+        EditorUtility.SetDirty(trollTrigger);
+        EditorUtility.DisplayDialog("⚠️ DEADLY Preset Applied", "Deadly Crusher preset applied!\n\nThis object will KILL the player when returning!\n\nMake sure:\n1. Player has PlayerDeath script\n2. Moving object has trigger collider\n3. Click 'Setup Death Collision' button", "OK");
+    }
+
+    private void ApplyTrapDoorPreset()
+    {
+        Undo.RecordObject(trollTrigger, "Apply Trap Door Preset");
+        trollTrigger.movementType = TrollTrigger.MovementType.MoveToTarget;
+        trollTrigger.moveSpeed = 8f;
+        trollTrigger.reusable = true;
+        trollTrigger.activationDelay = 0.2f;
+        trollTrigger.returnToStart = true;
+        trollTrigger.returnDelay = 2f;
+        trollTrigger.killPlayerOnReturn = true;
+        trollTrigger.killDelay = 0f;
+        trollTrigger.deadlyTag = "Enemy";
+        
+        if (trollTrigger.pathPoints.Count == 0)
+        {
+            AddWaypoint();
+            if (trollTrigger.pathPoints[0] != null)
+            {
+                trollTrigger.pathPoints[0].position = trollTrigger.transform.position + Vector3.down * 3f;
+            }
+        }
+        
+        EditorUtility.SetDirty(trollTrigger);
+        EditorUtility.DisplayDialog("⚠️ DEADLY Preset Applied", "Trap Door preset applied!\n\nDoor opens, then closes and becomes deadly!\n\nSetup required:\n1. Player has PlayerDeath script\n2. Click 'Setup Death Collision' button", "OK");
     }
 }

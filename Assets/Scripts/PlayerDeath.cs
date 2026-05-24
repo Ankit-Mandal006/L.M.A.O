@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerDeath : MonoBehaviour
 {
@@ -6,6 +7,9 @@ public class PlayerDeath : MonoBehaviour
     public Transform spawnPoint;
 
     private CharacterController controller;
+
+    // Static event that TrollTrigger can subscribe to
+    public static event Action<GameObject> OnPlayerRespawned;
 
     void Start()
     {
@@ -28,5 +32,8 @@ public class PlayerDeath : MonoBehaviour
         transform.rotation = spawnPoint.rotation;
 
         controller.enabled = true;
+
+        // Notify all listeners that player has respawned
+        OnPlayerRespawned?.Invoke(gameObject);
     }
 }

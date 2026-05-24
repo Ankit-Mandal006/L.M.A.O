@@ -39,6 +39,22 @@ public class TrollTrigger : MonoBehaviour
     
     [Tooltip("Should the object return to start position?")]
     public bool returnToStart = false;
+    
+    [Tooltip("Delay before returning to start position (in seconds)")]
+    public float returnDelay = 0f;
+    
+    [Tooltip("Return to start when player dies/respawns instead of on trigger exit")]
+    public bool returnOnPlayerDeath = false;
+
+    [Header("Death Settings")]
+    [Tooltip("Should the player die when object returns to start?")]
+    public bool killPlayerOnReturn = false;
+    
+    [Tooltip("Delay before killing player after return starts (in seconds)")]
+    public float killDelay = 0f;
+    
+    [Tooltip("Tag to add to moving object when it becomes deadly")]
+    public string deadlyTag = "Enemy";
 
     [Header("Player Collision Settings")]
     [Tooltip("Disable player controller when hit by moving objects")]
@@ -70,9 +86,13 @@ public class TrollTrigger : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Coroutine movementCoroutine;
+    private Coroutine returnCoroutine;
     private bool isMoving = false;
+    private bool isReturning = false;
     private MonoBehaviour playerController;
     private List<CollisionDetector> collisionDetectors = new List<CollisionDetector>();
+    private List<string> originalTags = new List<string>();
+    private GameObject currentPlayer;
 
     public enum MovementType
     {
@@ -127,6 +147,107 @@ public class TrollTrigger : MonoBehaviour
         if (disablePlayerOnCollision)
         {
             SetupCollisionDetectors();
+        }
+
+        // Store original tags if kill on return is enabled
+        if (killPlayerOnReturn)
+        {
+            StoreOriginalTags();
+        }
+    }
+
+    private void OnEnable()
+    {
+        // Subscribe to player death event
+        PlayerDeath.OnPlayerRespawned += OnPlayerRespawned;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe from player death event
+        PlayerDeath.OnPlayerRespawned -= OnPlayerRespawned;
+    }
+
+    private void OnPlayerRespawned(GameObject player)
+    {
+        // Check if this is the player we're tracking and return on death is enabled
+        if (returnOnPlayerDeath && player == currentPlayer && (hasTriggered || isMoving))
+        {
+            // Stop current movement
+            if (movementCoroutine != null)
+            {
+                StopCoroutine(movementCoroutine);
+            }
+            
+            // Stop any existing return coroutine
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+            }
+            
+            isMoving = false;
+            currentPlayer = null;
+            
+            // Start delayed return to start position
+            returnCoroutine = StartCoroutine(DelayedReturnToStart());
+            
+            // Reset trigger if reusable
+            if (reusable)
+            {
+                hasTriggered = false;
+            }
+        }
+    }
+
+    private void StoreOriginalTags()
+    {
+        // Store original tag of moving object
+        originalTags.Add(movingObject.gameObject.tag);
+
+        // Store original tags of collision objects
+        foreach (GameObject obj in collisionObjects)
+        {
+            if (obj != null)
+            {
+                originalTags.Add(obj.tag);
+            }
+        }
+    }
+
+    private void SetDeadlyTags()
+    {
+        // Set moving object to deadly tag
+        movingObject.gameObject.tag = deadlyTag;
+
+        // Set collision objects to deadly tag
+        foreach (GameObject obj in collisionObjects)
+        {
+            if (obj != null)
+            {
+                obj.tag = deadlyTag;
+            }
+        }
+    }
+
+    private void RestoreOriginalTags()
+    {
+        int tagIndex = 0;
+
+        // Restore moving object tag
+        if (tagIndex < originalTags.Count)
+        {
+            movingObject.gameObject.tag = originalTags[tagIndex];
+            tagIndex++;
+        }
+
+        // Restore collision object tags
+        foreach (GameObject obj in collisionObjects)
+        {
+            if (obj != null && tagIndex < originalTags.Count)
+            {
+                obj.tag = originalTags[tagIndex];
+                tagIndex++;
+            }
         }
     }
 
@@ -203,6 +324,9 @@ public class TrollTrigger : MonoBehaviour
         
         if (other.CompareTag(targetTag))
         {
+            // Store reference to current player
+            currentPlayer = other.gameObject;
+            
             if (activationDelay > 0)
             {
                 StartCoroutine(DelayedActivation());
@@ -216,7 +340,8 @@ public class TrollTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(targetTag) && returnToStart)
+        // Only return on trigger exit if returnOnPlayerDeath is disabled
+        if (other.CompareTag(targetTag) && returnToStart && !returnOnPlayerDeath)
         {
             // Stop current movement
             if (movementCoroutine != null)
@@ -224,10 +349,17 @@ public class TrollTrigger : MonoBehaviour
                 StopCoroutine(movementCoroutine);
             }
             
-            isMoving = false;
+            // Stop any existing return coroutine
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+            }
             
-            // Return to start position
-            movementCoroutine = StartCoroutine(MoveToTarget(startPosition));
+            isMoving = false;
+            currentPlayer = null;
+            
+            // Start delayed return to start position
+            returnCoroutine = StartCoroutine(DelayedReturnToStart());
             
             // Reset trigger if reusable
             if (reusable)
@@ -241,6 +373,43 @@ public class TrollTrigger : MonoBehaviour
     {
         yield return new WaitForSeconds(activationDelay);
         Activate();
+    }
+
+    private IEnumerator DelayedReturnToStart()
+    {
+        // Wait for the specified delay
+        if (returnDelay > 0f)
+        {
+            yield return new WaitForSeconds(returnDelay);
+        }
+        
+        isReturning = true;
+
+        // If kill player on return is enabled, set deadly tag after kill delay
+        if (killPlayerOnReturn)
+        {
+            if (killDelay > 0f)
+            {
+                yield return new WaitForSeconds(killDelay);
+            }
+            SetDeadlyTags();
+        }
+        
+        // Return to start position
+        isMoving = true;
+        yield return StartCoroutine(MoveToTarget(startPosition));
+        
+        // Also reset rotation if needed
+        movingObject.rotation = startRotation;
+        
+        isMoving = false;
+        isReturning = false;
+
+        // Restore original tags after return is complete
+        if (killPlayerOnReturn)
+        {
+            RestoreOriginalTags();
+        }
     }
 
     private void Activate()
@@ -426,12 +595,27 @@ public class TrollTrigger : MonoBehaviour
     {
         hasTriggered = false;
         isMoving = false;
+        isReturning = false;
+        currentPlayer = null;
+        
         if (movementCoroutine != null)
         {
             StopCoroutine(movementCoroutine);
         }
+        if (returnCoroutine != null)
+        {
+            StopCoroutine(returnCoroutine);
+        }
+        
         movingObject.position = startPosition;
         movingObject.rotation = startRotation;
+        
+        // Restore original tags
+        if (killPlayerOnReturn)
+        {
+            RestoreOriginalTags();
+        }
+        
         EnablePlayerController();
     }
 
@@ -476,6 +660,35 @@ public class TrollTrigger : MonoBehaviour
             {
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(pathPoints[pathPoints.Count - 1].position, pathPoints[0].position);
+            }
+
+            // Draw return to start line if enabled (RED if kill player is enabled, BLUE if return on death)
+            if (returnToStart && pathPoints.Count > 0 && pathPoints[pathPoints.Count - 1] != null)
+            {
+                if (returnOnPlayerDeath)
+                {
+                    Gizmos.color = Color.blue;
+                }
+                else
+                {
+                    Gizmos.color = killPlayerOnReturn ? Color.red : Color.magenta;
+                }
+                
+                Gizmos.DrawLine(pathPoints[pathPoints.Count - 1].position, startPos);
+                
+                // Draw warning sphere at start position if kill is enabled
+                if (killPlayerOnReturn)
+                {
+                    Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+                    Gizmos.DrawSphere(startPos, 0.5f);
+                }
+                
+                // Draw skull icon at start if return on death
+                if (returnOnPlayerDeath)
+                {
+                    Gizmos.color = new Color(0f, 0f, 1f, 0.5f);
+                    Gizmos.DrawSphere(startPos, 0.5f);
+                }
             }
         }
     }
