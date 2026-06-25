@@ -1,0 +1,399 @@
+Scene: Karthik - level 8
+========================================
+
+- Main Camera [Tag: MainCamera, Layer: Default, Active: True]
+  Pos: (0.00, 1.00, -10.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, Camera, AudioListener
+- Directional Light [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (0.00, 3.00, 0.00), Rot: (50.00, 330.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, Light, UniversalAdditionalLightData
+- Room Starts [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (22.40, 0.00, -7.20), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform
+- Cube (6) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-2.12, -0.11, -31.70), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- GameObject (1) [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (8.54, 3.61, -7.04), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform
+  - Main Camera [Tag: MainCamera, Layer: Default, Active: True]
+    Pos: (8.54, 3.27, -7.04), Rot: (24.40, 178.80, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, Camera, AudioListener, UniversalAdditionalCameraData, CinemachineBrain
+  - Spawn Point [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -1.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (0.50, 0.50, 0.50)
+    Components: Transform
+  - Player [Tag: Player, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (0.50, 0.50, 0.50)
+    Components: Transform, MeshFilter, MeshRenderer, AlwaysCursorOn, ThirdPersonController, CapsuleCollider, CharacterController, PlayerDeath, MobileInputController
+  - DeathPlatform [Tag: Problem, Layer: Default, Active: True]
+    Pos: (5.70, 0.21, -16.55), Rot: (0.00, 0.00, 0.00), Scale: (0.92, 0.55, 1.35)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - DeathPlatform (2) [Tag: Problem, Layer: Default, Active: True]
+    Pos: (3.17, 0.21, -15.23), Rot: (0.00, 0.00, 0.00), Scale: (0.92, 0.55, 1.35)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - DeathPlatform (3) [Tag: Problem, Layer: Default, Active: True]
+    Pos: (0.85, 0.21, -16.69), Rot: (0.00, 0.00, 0.00), Scale: (0.92, 0.55, 1.35)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - DeathPlatform (1) [Tag: Problem, Layer: Default, Active: True]
+    Pos: (-1.02, 0.21, -19.82), Rot: (0.00, 90.00, 0.00), Scale: (0.30, 0.55, 3.00)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - DeathPlatform (5) [Tag: Problem, Layer: Default, Active: True]
+    Pos: (9.74, -3.15, -33.64), Rot: (0.00, 90.00, 0.00), Scale: (85.13, 1.25, 42.98)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - DeathPlatform (4) [Tag: Problem, Layer: Default, Active: True]
+    Pos: (-1.02, 0.21, -22.21), Rot: (0.00, 90.00, 0.00), Scale: (0.30, 0.55, 3.00)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - CMCam_A [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (8.54, 3.27, -7.04), Rot: (24.40, 178.80, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, CinemachineCamera, CinemachineSplineDolly, CinemachineRotationComposer
+  - Cube (5) [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (8.58, -0.22, -12.52), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+  - Cube (6) [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-0.96, -0.19, -25.55), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+  - Cube (7) [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-0.96, -0.19, -38.09), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+  - Cube (8) [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-0.96, -0.19, -47.04), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+  - Cube (9) [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (18.88, -0.19, -62.82), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- Checkpoint 1 (1) [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (-1.11, 0.00, -47.52), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, Checkpoint, BoxCollider, Animator
+  - Cube [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-1.11, 0.49, -47.52), Rot: (0.00, 0.00, 0.00), Scale: (0.10, 1.00, 0.10)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider
+    - Cube [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-1.41, 0.13, -47.52), Rot: (0.00, 0.00, 0.00), Scale: (5.77, 0.30, 0.70)
+      Components: Transform, MeshFilter, MeshRenderer, BoxCollider
+- Cube (5) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-0.50, -0.11, -30.48), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- GameObject (3) [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (-3.68, 0.65, -55.65), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, TrollTrigger, BoxCollider
+  - DeathPlatform [Tag: Problem, Layer: Default, Active: True]
+    Pos: (-3.73, 0.00, -55.51), Rot: (0.00, 0.00, 0.00), Scale: (0.30, 3.68, 3.00)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider, Rigidbody
+  - Waypoint_1 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (22.53, 0.65, -55.65), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+- Directional Light (1) [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (0.00, 3.00, 0.00), Rot: (50.00, 330.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, Light, UniversalAdditionalLightData
+- Cube (11) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-1.20, -0.22, -49.27), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- Checkpoint 1 [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (-0.91, 0.00, -25.89), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, Checkpoint, BoxCollider, Animator
+  - Cube [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-0.91, 0.49, -25.89), Rot: (0.00, 0.00, 0.00), Scale: (0.10, 1.00, 0.10)
+    Components: Transform, MeshFilter, MeshRenderer, BoxCollider
+    - Cube [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-1.21, 0.13, -25.89), Rot: (0.00, 0.00, 0.00), Scale: (5.77, 0.30, 0.70)
+      Components: Transform, MeshFilter, MeshRenderer, BoxCollider
+- Cube (8) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-0.43, -0.11, -34.93), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- Canvas [Tag: Untagged, Layer: UI, Active: True]
+  Pos: (320.00, 240.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: RectTransform, Canvas, CanvasScaler, GraphicRaycaster
+  - JoyStick-bg [Tag: Untagged, Layer: UI, Active: True]
+    Pos: (283.00, 267.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (2.00, 2.00, 1.00)
+    Components: RectTransform, CanvasRenderer, Image
+    - Joystick Knob [Tag: Untagged, Layer: UI, Active: True]
+      Pos: (283.00, 267.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (0.20, 0.20, 1.00)
+      Components: RectTransform, CanvasRenderer, Image
+  - Button [Tag: Untagged, Layer: UI, Active: True]
+    Pos: (401.00, 433.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: RectTransform, CanvasRenderer, Image, Button
+    - Text (TMP) [Tag: Untagged, Layer: UI, Active: True]
+      Pos: (401.00, 433.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: RectTransform, CanvasRenderer, TextMeshProUGUI
+  - Text (TMP) [Tag: Untagged, Layer: UI, Active: True]
+    Pos: (419.00, 418.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: RectTransform, CanvasRenderer, TextMeshProUGUI
+- GameObject (2) [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (-1.47, -0.11, -44.40), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, TrollTrigger, BoxCollider
+  - Cube (11) [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-1.47, -0.11, -44.40), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+  - Waypoint_1 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (1.08, -0.11, -44.40), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+- Checkpoint Manager [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (2.14, 0.00, -31.60), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, CheckpointManager
+- Cube (9) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-1.13, -0.11, -41.17), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- EventSystem [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (0.00, 0.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, EventSystem, InputSystemUIInputModule
+- Cube (7) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-1.63, -0.11, -33.46), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- DollyTrack_A [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (15.42, 3.27, -6.82), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, SplineContainer, CinemachineSplineSmoother
+- Room Ends [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (-10.40, 0.00, -74.67), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform
+- Camera System [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (2.76, 0.35, 3.89), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, RoomCameraFollow
+- Cube (10) [Tag: Untagged, Layer: Default, Active: False]
+  Pos: (-0.14, -0.11, -42.75), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, ProBuilderMesh, ProBuilderShape, MeshRenderer, MeshFilter, MeshCollider
+- FPS Counter [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (1489.65, 1064.45, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, FPSCounter
+- Goal [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (18.70, 1.08, -62.76), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform, MeshFilter, MeshRenderer, SphereCollider, GoalTrigger
+- _FALL_GUYS_LEVEL_ [Tag: Untagged, Layer: Default, Active: True]
+  Pos: (0.00, 0.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+  Components: Transform
+  - Start_Platform [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -2.00, 0.00), Rot: (0.00, 0.00, 0.00), Scale: (12.00, 2.00, 20.00)
+    Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_A_Sweepers [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 25.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Floor_A [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -2.00, 25.00), Rot: (0.00, 0.00, 0.00), Scale: (10.00, 2.00, 25.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Sweeper_1 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-2.50, 0.50, 25.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform, RotatingHammer
+      - Base [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (-2.50, 0.50, 25.00), Rot: (0.00, 0.00, 0.00), Scale: (1.20, 0.40, 1.20)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer
+      - Bar [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (-2.50, 0.90, 25.00), Rot: (0.00, 0.00, 90.00), Scale: (0.50, 0.10, 9.00)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer, KnockbackObstacle
+    - Sweeper_2 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (2.50, 0.50, 29.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform, RotatingHammer
+      - Base [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (2.50, 0.50, 29.00), Rot: (0.00, 0.00, 0.00), Scale: (1.20, 0.40, 1.20)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer
+      - Bar [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (2.50, 0.90, 29.00), Rot: (0.00, 0.00, 90.00), Scale: (0.50, 0.10, 9.00)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer, KnockbackObstacle
+  - Checkpoint_1 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -1.00, 43.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, Checkpoint, Animator
+    - Post_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-3.00, 0.50, 43.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Post_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (3.00, 0.50, 43.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Top_Bar [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 2.20, 43.00), Rot: (0.00, 0.00, 0.00), Scale: (6.40, 0.40, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_B_MovingPlatforms [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 65.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Floor_B_Static [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -2.00, 65.00), Rot: (0.00, 0.00, 0.00), Scale: (3.00, 2.00, 25.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Plat_B1_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-6.00, -2.00, 58.00), Rot: (0.00, 0.00, 0.00), Scale: (4.00, 1.50, 6.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, MovingPlatform
+    - Plat_B2_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (6.00, -3.00, 72.00), Rot: (0.00, 0.00, 0.00), Scale: (4.00, 1.50, 6.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, MovingPlatform
+  - Checkpoint_2 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -1.00, 82.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, Checkpoint, Animator
+    - Post_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-3.00, 0.50, 82.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Post_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (3.00, 0.50, 82.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Top_Bar [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 2.20, 82.00), Rot: (0.00, 0.00, 0.00), Scale: (6.40, 0.40, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_C_SpinningHammers [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 105.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Floor_C [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -2.00, 105.00), Rot: (0.00, 0.00, 0.00), Scale: (10.00, 2.00, 28.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Hammer_1 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-4.50, 1.50, 98.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform
+      - Pillar [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (-4.50, 3.00, 98.00), Rot: (0.00, 0.00, 0.00), Scale: (0.60, 2.50, 0.60)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer
+      - Pivot [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (-4.50, 5.50, 98.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+        Components: Transform, RotatingHammer
+        - Arm [Tag: Untagged, Layer: Default, Active: True]
+          Pos: (-4.50, 4.00, 98.00), Rot: (0.00, 0.00, 0.00), Scale: (0.30, 3.00, 0.30)
+          Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+        - Head [Tag: Untagged, Layer: Default, Active: True]
+          Pos: (-4.50, 2.50, 98.00), Rot: (90.00, 0.00, 0.00), Scale: (1.80, 0.80, 1.80)
+          Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer, KnockbackObstacle
+    - Hammer_2 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (4.50, 1.50, 112.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform
+      - Pillar [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (4.50, 3.00, 112.00), Rot: (0.00, 0.00, 0.00), Scale: (0.60, 2.50, 0.60)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer
+      - Pivot [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (4.50, 5.50, 112.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+        Components: Transform, RotatingHammer
+        - Arm [Tag: Untagged, Layer: Default, Active: True]
+          Pos: (4.50, 4.00, 112.00), Rot: (0.00, 0.00, 0.00), Scale: (0.30, 3.00, 0.30)
+          Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+        - Head [Tag: Untagged, Layer: Default, Active: True]
+          Pos: (4.50, 2.50, 112.00), Rot: (90.00, 0.00, 0.00), Scale: (1.80, 0.80, 1.80)
+          Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer, KnockbackObstacle
+  - Checkpoint_3 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -1.00, 123.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, Checkpoint, Animator
+    - Post_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-3.00, 0.50, 123.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Post_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (3.00, 0.50, 123.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Top_Bar [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 2.20, 123.00), Rot: (0.00, 0.00, 0.00), Scale: (6.40, 0.40, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_D_TiltingPlatforms [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 150.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Seesaw_1 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -1.00, 145.00), Rot: (0.00, 0.00, 0.00), Scale: (8.00, 1.00, 14.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, TiltingPlatform, BoxCollider
+    - Seesaw_2 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -1.00, 165.00), Rot: (0.00, 0.00, 0.00), Scale: (8.00, 1.00, 14.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, TiltingPlatform, BoxCollider
+  - Checkpoint_4 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -1.00, 180.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, Checkpoint, Animator
+    - Post_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-3.00, 0.50, 180.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Post_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (3.00, 0.50, 180.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Top_Bar [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 2.20, 180.00), Rot: (0.00, 0.00, 0.00), Scale: (6.40, 0.40, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_E_JumpPads [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 205.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Floor_E_Lower [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -2.00, 202.00), Rot: (0.00, 0.00, 0.00), Scale: (10.00, 2.00, 12.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Floor_E_Upper [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 4.00, 218.00), Rot: (0.00, 0.00, 0.00), Scale: (8.00, 2.00, 14.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - JumpPad_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-2.50, -0.90, 202.00), Rot: (0.00, 0.00, 0.00), Scale: (2.00, 0.20, 2.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, JumpPad
+    - JumpPad_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (2.50, -0.90, 202.00), Rot: (0.00, 0.00, 0.00), Scale: (2.00, 0.20, 2.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, JumpPad
+  - Checkpoint_5 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 5.10, 222.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, Checkpoint, Animator
+    - Post_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-3.00, 6.60, 222.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Post_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (3.00, 6.60, 222.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Top_Bar [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 8.30, 222.00), Rot: (0.00, 0.00, 0.00), Scale: (6.40, 0.40, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_F_ConveyorBelts [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 4.00, 250.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Conveyor_Floor [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 4.00, 250.00), Rot: (0.00, 0.00, 0.00), Scale: (8.00, 2.00, 32.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer, ConveyorBelt, BoxCollider
+    - Hurdle_1 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 5.25, 242.00), Rot: (0.00, 0.00, 0.00), Scale: (8.00, 0.50, 0.50)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Hurdle_2 [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 5.25, 258.00), Rot: (0.00, 0.00, 0.00), Scale: (8.00, 0.50, 0.50)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Checkpoint_6 [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 5.10, 270.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, Checkpoint, Animator
+    - Post_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-3.00, 6.60, 270.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Post_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (3.00, 6.60, 270.00), Rot: (0.00, 0.00, 0.00), Scale: (0.40, 3.00, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Top_Bar [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 8.30, 270.00), Rot: (0.00, 0.00, 0.00), Scale: (6.40, 0.40, 0.40)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+  - Section_G_FinalChallenge [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, 0.00, 310.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Final_Ramp [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 1.50, 292.00), Rot: (345.00, 0.00, 0.00), Scale: (6.00, 1.00, 25.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Narrow_Path [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -2.00, 322.00), Rot: (0.00, 0.00, 0.00), Scale: (4.00, 2.00, 30.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Final_Sweeper [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 0.50, 322.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform, RotatingHammer
+      - Base [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (0.00, 0.50, 322.00), Rot: (0.00, 0.00, 0.00), Scale: (1.20, 0.40, 1.20)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer
+      - Bar [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (0.00, 0.90, 322.00), Rot: (0.00, 0.00, 90.00), Scale: (0.50, 0.10, 9.00)
+        Components: Transform, MeshFilter, CapsuleCollider, MeshRenderer, KnockbackObstacle
+  - Finish_Area [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -2.00, 355.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform
+    - Finish_Platform [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, -2.00, 355.00), Rot: (0.00, 0.00, 0.00), Scale: (14.00, 2.00, 20.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Arch_Left [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-5.00, 2.50, 352.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 7.00, 1.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Arch_Right [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (5.00, 2.50, 352.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 7.00, 1.00)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+    - Arch_Top [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 6.50, 352.00), Rot: (0.00, 0.00, 0.00), Scale: (11.00, 1.00, 1.50)
+      Components: Transform, MeshFilter, BoxCollider, MeshRenderer
+      - FinishTextTMP [Tag: Untagged, Layer: Default, Active: True]
+        Pos: (0.00, 6.50, 350.80), Rot: (0.00, 180.00, 0.00), Scale: (0.09, 1.00, 0.67)
+        Components: RectTransform, MeshRenderer, TextMeshPro, MeshFilter
+    - FinishLineTrigger [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (0.00, 1.50, 352.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform, BoxCollider, FinishLine
+    - ConfettiParticles [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (-4.50, 2.00, 352.00), Rot: (270.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform, ParticleSystem, ParticleSystemRenderer
+    - ConfettiParticles [Tag: Untagged, Layer: Default, Active: True]
+      Pos: (4.50, 2.00, 352.00), Rot: (270.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+      Components: Transform, ParticleSystem, ParticleSystemRenderer
+  - Elimination_Zone [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (0.00, -12.00, 185.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider, EliminationZone
+  - Boundary_Barrier_Left [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (-12.00, 10.00, 185.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider
+  - Boundary_Barrier_Right [Tag: Untagged, Layer: Default, Active: True]
+    Pos: (12.00, 10.00, 185.00), Rot: (0.00, 0.00, 0.00), Scale: (1.00, 1.00, 1.00)
+    Components: Transform, BoxCollider

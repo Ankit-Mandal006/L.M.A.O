@@ -43,9 +43,14 @@ public class ThirdPersonController : MonoBehaviour
     private bool jumpInput;
     private bool runInput;
 
+    [Header("Knockback Settings")]
+    [SerializeField] private float knockbackDecay = 5f;
+    private Vector3 knockbackForce = Vector3.zero;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        maxJumps = 1; // Explicitly disable double jump by forcing maxJumps to 1
         
         if (playerCamera == null)
         {
@@ -61,7 +66,7 @@ public class ThirdPersonController : MonoBehaviour
     private void Update()
     {
         #if UNITY_EDITOR
-        if (Input.touches.Length == 0 && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f || Input.GetButtonDown("Jump")))
+        if (Input.touches.Length == 0)
         {
             GetInput();
         }
@@ -74,7 +79,18 @@ public class ThirdPersonController : MonoBehaviour
         HandleJump();
         ApplyGravity();
         
-        controller.Move(velocity * Time.deltaTime);
+        Vector3 finalMove = velocity;
+        if (knockbackForce.sqrMagnitude > 0.01f)
+        {
+            finalMove += knockbackForce;
+            knockbackForce = Vector3.Lerp(knockbackForce, Vector3.zero, knockbackDecay * Time.deltaTime);
+        }
+        else
+        {
+            knockbackForce = Vector3.zero;
+        }
+
+        controller.Move(finalMove * Time.deltaTime);
 
         jumpInput = false;
 
@@ -174,6 +190,16 @@ public class ThirdPersonController : MonoBehaviour
         {
             velocity.y -= gravity * Time.deltaTime;
         }
+    }
+
+    public void AddKnockback(Vector3 force)
+    {
+        knockbackForce += force;
+    }
+
+    public void Launch(float upwardForce)
+    {
+        velocity.y = upwardForce;
     }
 
     public void SetMovementEnabled(bool enabled)

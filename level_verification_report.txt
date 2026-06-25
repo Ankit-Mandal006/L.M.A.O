@@ -1,0 +1,54 @@
+==================================================
+          LEVEL PLAYABILITY VERIFICATION REPORT    
+==================================================
+Date: 26-06-2026 00:34:32
+Opened scene: Karthik - level 8
+
+--- Camera System Verification ---
+[PASS] Exactly 1 active MainCamera found: 'Main Camera' (parent: 'GameObject (1)')
+[PASS] PlayerFollowCamera component is attached to the active camera.
+[PASS] Camera offset: (0.00, 5.00, -8.00) (Expected close: (0, 5, -8))
+[PASS] Smooth time: 0.15
+[PASS] Lookahead: 3
+[PASS] Camera collision layers mask: 1 (Collision enabled)
+
+--- Spacing & Gaps Verification ---
+[PASS] _FALL_GUYS_LEVEL_ root object is active.
+Found 17 platform surfaces along Z-axis.
+  Gap between '(12.00, 2.00, 20.00)' at Z=0.0 and '(10.00, 2.00, 25.00)' at Z=23.5 is 1.00 units.
+  Gap between '(10.00, 2.00, 25.00)' at Z=23.5 and '(8.00, 2.00, 6.00)' at Z=40.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 6.00)' at Z=40.0 and '(3.00, 2.00, 22.00)' at Z=55.0 is 1.00 units.
+  Gap between '(3.00, 2.00, 22.00)' at Z=55.0 and '(8.00, 2.00, 6.00)' at Z=70.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 6.00)' at Z=70.0 and '(10.00, 2.00, 28.00)' at Z=88.0 is 1.00 units.
+  Gap between '(10.00, 2.00, 28.00)' at Z=88.0 and '(8.00, 2.00, 6.00)' at Z=106.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 6.00)' at Z=106.0 and '(8.00, 1.00, 14.00)' at Z=117.0 is 1.00 units.
+  Gap between '(8.00, 1.00, 14.00)' at Z=117.0 and '(8.00, 1.00, 14.00)' at Z=132.0 is 1.00 units.
+  Gap between '(8.00, 1.00, 14.00)' at Z=132.0 and '(8.00, 2.00, 6.00)' at Z=143.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 6.00)' at Z=143.0 and '(10.00, 2.00, 12.00)' at Z=153.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 14.00)' at Z=166.0 and '(8.00, 2.00, 32.00)' at Z=190.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 32.00)' at Z=190.0 and '(8.00, 2.00, 6.00)' at Z=210.0 is 1.00 units.
+  Gap between '(8.00, 2.00, 6.00)' at Z=210.0 and '(6.00, 7.44, 24.41)' at Z=226.5 is 1.30 units.
+  Gap between '(6.00, 7.44, 24.41)' at Z=226.5 and '(4.00, 2.00, 30.00)' at Z=255.0 is 1.30 units.
+  Gap between '(4.00, 2.00, 30.00)' at Z=255.0 and '(14.00, 2.00, 20.00)' at Z=281.0 is 1.00 units.
+[PASS] Maximum platform gap found along the Z-axis: 1.30 units (Target: <= 3.0 units).
+
+--- Checkpoint & Spawn Point Verification ---
+Found 6 active checkpoints in the scene.
+[PASS] Checkpoint 'Checkpoint_5' at Z=170.0 is placed on solid geometry 'Floor_E_Upper' (distance: 1.10 units).
+[PASS] Checkpoint 'Checkpoint_6' at Z=210.0 is placed on solid geometry 'Checkpoint_6_Floor' (distance: 1.10 units).
+[PASS] Checkpoint 'Checkpoint_1' at Z=40.0 is placed on solid geometry 'Checkpoint_1_Floor' (distance: 1.00 units).
+[PASS] Checkpoint 'Checkpoint_3' at Z=106.0 is placed on solid geometry 'Checkpoint_3_Floor' (distance: 1.00 units).
+[PASS] Checkpoint 'Checkpoint_2' at Z=70.0 is placed on solid geometry 'Checkpoint_2_Floor' (distance: 1.00 units).
+[PASS] Checkpoint 'Checkpoint_4' at Z=143.0 is placed on solid geometry 'Checkpoint_4_Floor' (distance: 1.00 units).
+
+--- Moving Platform Physics Verification ---
+Found 2 active Moving Platforms in the scene.
+[PASS] Moving Platform 'Plat_B1_Left' has both solid and trigger colliders (Trigger enabled).
+[PASS] Moving Platform 'Plat_B2_Right' has both solid and trigger colliders (Trigger enabled).
+
+--- Old Geometry Clean-up Verification ---
+[PASS] All redundant root-level geometry and triggers have been successfully cleaned up/disabled.
+
+==================================================
+          VERIFICATION RESULT: ALL TESTS PASSED!  
+==================================================

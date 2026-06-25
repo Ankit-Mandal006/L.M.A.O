@@ -26,9 +26,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/level 6.unity
     guid: ae60ceacb4c999e4d984a9c5662bfe22
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/level 7.unity
     guid: 5b584d9c810f4f34494467d13cd03175
+  - enabled: 1
+    path: Assets/Scenes/Karthik - level 8.unity
+    guid: abdcda4cb31ed7c40a7e12f3dfce339f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

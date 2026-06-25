@@ -24,7 +24,7 @@ public class PlayerDeath : MonoBehaviour
         }
     }
 
-    void Respawn()
+    public void Respawn()
     {
         controller.enabled = false;
 
