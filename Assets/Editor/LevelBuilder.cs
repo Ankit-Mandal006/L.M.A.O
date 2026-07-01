@@ -104,19 +104,19 @@ public static class LevelBuilder
         // 7. BUILD SECTIONS
         
         // Start Platform
-        GameObject startPlatform = CreatePlatform("Start_Platform", new Vector3(0f, -2f, 0f), new Vector3(12f, 2f, 20f), matBlue, levelRoot.transform);
+        GameObject startPlatform = CreatePlatform("Start_Platform", new Vector3(0f, -2f, 0f), new Vector3(8f, 2f, 20f), matBlue, levelRoot.transform);
         
         // ----------------- SECTION A: ROTATING SWEEP BARS -----------------
         GameObject secARoot = new GameObject("Section_A_Sweepers");
         secARoot.transform.SetParent(levelRoot.transform);
         secARoot.transform.position = new Vector3(0f, 0f, 23.5f);
 
-        CreatePlatform("Floor_A", new Vector3(0f, -2f, 23.5f), new Vector3(10f, 2f, 25f), matYellow, secARoot.transform);
+        CreatePlatform("Floor_A", new Vector3(0f, -2f, 23.5f), new Vector3(8f, 2f, 25f), matYellow, secARoot.transform);
         
-        // Rotating Sweep 1 (Left)
-        GameObject sweeper1 = CreateSweeper("Sweeper_1", new Vector3(-2.5f, 0.5f, 23.5f), 120f, Vector3.up, matPink, matRed, secARoot.transform);
-        // Rotating Sweep 2 (Right)
-        GameObject sweeper2 = CreateSweeper("Sweeper_2", new Vector3(2.5f, 0.5f, 27.5f), -140f, Vector3.up, matPink, matRed, secARoot.transform);
+        // Rotating Sweep 1 (Left) - Slower and shorter
+        GameObject sweeper1 = CreateSweeper("Sweeper_1", new Vector3(-4f, 0.5f, 23.5f), 50f, Vector3.up, matPink, matRed, secARoot.transform);
+        // Rotating Sweep 2 (Right) - Slower and shorter
+        GameObject sweeper2 = CreateSweeper("Sweeper_2", new Vector3(4f, 0.5f, 27.5f), -50f, Vector3.up, matPink, matRed, secARoot.transform);
 
         // Checkpoint 1
         CreatePlatform("Checkpoint_1_Floor", new Vector3(0f, -2f, 40f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
@@ -125,28 +125,28 @@ public static class LevelBuilder
         // ----------------- SECTION B: MOVING PLATFORMS -----------------
         GameObject secBRoot = new GameObject("Section_B_MovingPlatforms");
         secBRoot.transform.SetParent(levelRoot.transform);
-        secBRoot.transform.position = new Vector3(0f, 0f, 55f);
+        secBRoot.transform.position = new Vector3(0f, 0f, 55.5f);
 
-        // Safe Platform (Center static)
-        CreatePlatform("Floor_B_Static", new Vector3(0f, -2f, 55f), new Vector3(3f, 2f, 22f), matBlue, secBRoot.transform);
+        // Safe Platform (Center static, wider)
+        CreatePlatform("Floor_B_Static", new Vector3(0f, -2f, 55.5f), new Vector3(6f, 2f, 6f), matBlue, secBRoot.transform);
         
-        // Risky Platform 1 (Left - horizontal movement)
-        GameObject platB1 = CreatePlatform("Plat_B1_Left", new Vector3(-6f, -2f, 49f), new Vector3(4f, 1.5f, 6f), matPink, secBRoot.transform);
+        // Risky Platform 1 (Centered - horizontal movement along X, wider)
+        GameObject platB1 = CreatePlatform("Plat_B1_Left", new Vector3(0f, -2f, 47.5f), new Vector3(6f, 1.5f, 6f), matPink, secBRoot.transform);
         MovingPlatform mp1 = platB1.AddComponent<MovingPlatform>();
         mp1.movementDirection = Vector3.right;
-        mp1.speed = 2f;
-        mp1.distance = 4f;
+        mp1.speed = 1.5f;
+        mp1.distance = 3f;
         // Trigger BoxCollider for player tracking
         BoxCollider triggerB1 = platB1.AddComponent<BoxCollider>();
         triggerB1.isTrigger = true;
         triggerB1.size = new Vector3(1.02f, 2.0f, 1.02f);
         triggerB1.center = new Vector3(0f, 0.6f, 0f);
 
-        // Risky Platform 2 (Right - vertical movement)
-        GameObject platB2 = CreatePlatform("Plat_B2_Right", new Vector3(6f, -3f, 61f), new Vector3(4f, 1.5f, 6f), matGreen, secBRoot.transform);
+        // Risky Platform 2 (Centered - vertical movement along Y, wider)
+        GameObject platB2 = CreatePlatform("Plat_B2_Right", new Vector3(0f, -3f, 63.5f), new Vector3(6f, 1.5f, 6f), matGreen, secBRoot.transform);
         MovingPlatform mp2 = platB2.AddComponent<MovingPlatform>();
         mp2.movementDirection = Vector3.up;
-        mp2.speed = 3f;
+        mp2.speed = 2f;
         mp2.distance = 3f;
         // Trigger BoxCollider for player tracking
         BoxCollider triggerB2 = platB2.AddComponent<BoxCollider>();
@@ -155,49 +155,55 @@ public static class LevelBuilder
         triggerB2.center = new Vector3(0f, 0.6f, 0f);
 
         // Checkpoint 2
-        CreatePlatform("Checkpoint_2_Floor", new Vector3(0f, -2f, 70f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
-        CreateCheckpointObject("Checkpoint_2", new Vector3(0f, -1f, 70f), checkpointManager, checkpointController, levelRoot.transform);
+        CreatePlatform("Checkpoint_2_Floor", new Vector3(0f, -2f, 71f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
+        CreateCheckpointObject("Checkpoint_2", new Vector3(0f, -1f, 71f), checkpointManager, checkpointController, levelRoot.transform);
 
         // ----------------- SECTION C: SPINNING HAMMERS -----------------
         GameObject secCRoot = new GameObject("Section_C_SpinningHammers");
         secCRoot.transform.SetParent(levelRoot.transform);
-        secCRoot.transform.position = new Vector3(0f, 0f, 88f);
+        secCRoot.transform.position = new Vector3(0f, 0f, 89f);
 
-        CreatePlatform("Floor_C", new Vector3(0f, -2f, 88f), new Vector3(10f, 2f, 28f), matOrange, secCRoot.transform);
+        CreatePlatform("Floor_C", new Vector3(0f, -2f, 89f), new Vector3(8f, 2f, 28f), matOrange, secCRoot.transform);
 
-        // Rotating Hammer 1 (Left wall, sweeps path)
-        CreateHammerObstacle("Hammer_1", new Vector3(-4.5f, 1.5f, 81f), 180f, Vector3.up, matPink, matWhite, secCRoot.transform);
-        // Rotating Hammer 2 (Right wall, sweeps path)
-        CreateHammerObstacle("Hammer_2", new Vector3(4.5f, 1.5f, 95f), -180f, Vector3.up, matPink, matWhite, secCRoot.transform);
+        // Rotating Hammer 1 (Left wall, sweeps path, slower)
+        CreateHammerObstacle("Hammer_1", new Vector3(-4f, 1.5f, 82f), 45f, Vector3.up, matPink, matWhite, secCRoot.transform);
+        // Rotating Hammer 2 (Right wall, sweeps path, slower)
+        CreateHammerObstacle("Hammer_2", new Vector3(4f, 1.5f, 96f), -45f, Vector3.up, matPink, matWhite, secCRoot.transform);
 
         // Checkpoint 3
-        CreatePlatform("Checkpoint_3_Floor", new Vector3(0f, -2f, 106f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
-        CreateCheckpointObject("Checkpoint_3", new Vector3(0f, -1f, 106f), checkpointManager, checkpointController, levelRoot.transform);
+        CreatePlatform("Checkpoint_3_Floor", new Vector3(0f, -2f, 107f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
+        CreateCheckpointObject("Checkpoint_3", new Vector3(0f, -1f, 107f), checkpointManager, checkpointController, levelRoot.transform);
 
         // ----------------- SECTION D: TILTING PLATFORMS -----------------
         GameObject secDRoot = new GameObject("Section_D_TiltingPlatforms");
         secDRoot.transform.SetParent(levelRoot.transform);
-        secDRoot.transform.position = new Vector3(0f, 0f, 124.5f);
+        secDRoot.transform.position = new Vector3(0f, 0f, 125.5f);
 
         // Pivot anchors and tilting seesaws
-        GameObject tiltPlat1 = CreatePlatform("Seesaw_1", new Vector3(0f, -1f, 117f), new Vector3(8f, 1f, 14f), matPurple, secDRoot.transform);
-        tiltPlat1.AddComponent<TiltingPlatform>();
+        GameObject tiltPlat1 = CreatePlatform("Seesaw_1", new Vector3(0f, -1f, 118f), new Vector3(8f, 1f, 14f), matPurple, secDRoot.transform);
+        TiltingPlatform tp1 = tiltPlat1.AddComponent<TiltingPlatform>();
+        tp1.maxTiltAngle = 6f; // lower tilt for single jump
+        tp1.returnSpeed = 3f;  // faster return
+        
         // Add a trigger zone above it for detecting players
         BoxCollider tiltTrig1 = tiltPlat1.AddComponent<BoxCollider>();
         tiltTrig1.isTrigger = true;
         tiltTrig1.size = new Vector3(8.5f, 4f, 14.5f);
         tiltTrig1.center = new Vector3(0f, 2f, 0f);
 
-        GameObject tiltPlat2 = CreatePlatform("Seesaw_2", new Vector3(0f, -1f, 132f), new Vector3(8f, 1f, 14f), matYellow, secDRoot.transform);
-        tiltPlat2.AddComponent<TiltingPlatform>();
+        GameObject tiltPlat2 = CreatePlatform("Seesaw_2", new Vector3(0f, -1f, 133f), new Vector3(8f, 1f, 14f), matYellow, secDRoot.transform);
+        TiltingPlatform tp2 = tiltPlat2.AddComponent<TiltingPlatform>();
+        tp2.maxTiltAngle = 6f;
+        tp2.returnSpeed = 3f;
+        
         BoxCollider tiltTrig2 = tiltPlat2.AddComponent<BoxCollider>();
         tiltTrig2.isTrigger = true;
         tiltTrig2.size = new Vector3(8.5f, 4f, 14.5f);
         tiltTrig2.center = new Vector3(0f, 2f, 0f);
 
         // Checkpoint 4
-        CreatePlatform("Checkpoint_4_Floor", new Vector3(0f, -2f, 143f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
-        CreateCheckpointObject("Checkpoint_4", new Vector3(0f, -1f, 143f), checkpointManager, checkpointController, levelRoot.transform);
+        CreatePlatform("Checkpoint_4_Floor", new Vector3(0f, -2f, 144f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
+        CreateCheckpointObject("Checkpoint_4", new Vector3(0f, -1f, 144f), checkpointManager, checkpointController, levelRoot.transform);
 
         // ----------------- SECTION E: JUMP PADS -----------------
         GameObject secERoot = new GameObject("Section_E_JumpPads");
@@ -205,48 +211,48 @@ public static class LevelBuilder
         secERoot.transform.position = new Vector3(0f, 0f, 159.5f);
 
         // Lower floor
-        CreatePlatform("Floor_E_Lower", new Vector3(0f, -2f, 153f), new Vector3(10f, 2f, 12f), matBlue, secERoot.transform);
+        CreatePlatform("Floor_E_Lower", new Vector3(0f, -2f, 154f), new Vector3(8f, 2f, 12f), matBlue, secERoot.transform);
         // Higher platform
-        CreatePlatform("Floor_E_Upper", new Vector3(0f, 4f, 166f), new Vector3(8f, 2f, 14f), matGreen, secERoot.transform);
+        CreatePlatform("Floor_E_Upper", new Vector3(0f, 4f, 167f), new Vector3(8f, 2f, 14f), matGreen, secERoot.transform);
 
         // Jump pad 1 (Left)
-        GameObject pad1 = CreatePlatform("JumpPad_Left", new Vector3(-2.5f, -0.9f, 153f), new Vector3(2f, 0.2f, 2f), matPink, secERoot.transform);
+        GameObject pad1 = CreatePlatform("JumpPad_Left", new Vector3(-2f, -0.9f, 154f), new Vector3(2f, 0.2f, 2f), matPink, secERoot.transform);
         BoxCollider collPad1 = pad1.GetComponent<BoxCollider>();
         collPad1.isTrigger = true;
         JumpPad jp1 = pad1.AddComponent<JumpPad>();
         jp1.launchForce = 16f;
 
         // Jump pad 2 (Right)
-        GameObject pad2 = CreatePlatform("JumpPad_Right", new Vector3(2.5f, -0.9f, 153f), new Vector3(2f, 0.2f, 2f), matPink, secERoot.transform);
+        GameObject pad2 = CreatePlatform("JumpPad_Right", new Vector3(2f, -0.9f, 154f), new Vector3(2f, 0.2f, 2f), matPink, secERoot.transform);
         BoxCollider collPad2 = pad2.GetComponent<BoxCollider>();
         collPad2.isTrigger = true;
         JumpPad jp2 = pad2.AddComponent<JumpPad>();
         jp2.launchForce = 16f;
 
         // Checkpoint 5 (located on the high platform)
-        CreateCheckpointObject("Checkpoint_5", new Vector3(0f, 5.1f, 170f), checkpointManager, checkpointController, levelRoot.transform);
+        CreateCheckpointObject("Checkpoint_5", new Vector3(0f, 5.1f, 171f), checkpointManager, checkpointController, levelRoot.transform);
 
         // ----------------- SECTION F: CONVEYOR BELTS -----------------
         GameObject secFRoot = new GameObject("Section_F_ConveyorBelts");
         secFRoot.transform.SetParent(levelRoot.transform);
-        secFRoot.transform.position = new Vector3(0f, 4f, 190f);
+        secFRoot.transform.position = new Vector3(0f, 4f, 191f);
 
-        GameObject conveyorFloor = CreatePlatform("Conveyor_Floor", new Vector3(0f, 4f, 190f), new Vector3(8f, 2f, 32f), matPurple, secFRoot.transform);
+        GameObject conveyorFloor = CreatePlatform("Conveyor_Floor", new Vector3(0f, 4f, 191f), new Vector3(8f, 2f, 32f), matPurple, secFRoot.transform);
         ConveyorBelt cb = conveyorFloor.AddComponent<ConveyorBelt>();
         cb.pushDirection = Vector3.back;
-        cb.pushSpeed = 5f;
+        cb.pushSpeed = 2.5f; // Slower push for single-jump challenge
         BoxCollider cbColl = conveyorFloor.AddComponent<BoxCollider>();
         cbColl.isTrigger = true;
         cbColl.size = new Vector3(8.2f, 3f, 32.2f);
         cbColl.center = new Vector3(0f, 1.5f, 0f);
 
         // Small hurdles (cylinders to jump over on the conveyor)
-        CreatePlatform("Hurdle_1", new Vector3(0f, 5.25f, 182f), new Vector3(8f, 0.5f, 0.5f), matOrange, secFRoot.transform);
-        CreatePlatform("Hurdle_2", new Vector3(0f, 5.25f, 198f), new Vector3(8f, 0.5f, 0.5f), matOrange, secFRoot.transform);
+        CreatePlatform("Hurdle_1", new Vector3(0f, 5.25f, 183f), new Vector3(8f, 0.5f, 0.5f), matOrange, secFRoot.transform);
+        CreatePlatform("Hurdle_2", new Vector3(0f, 5.25f, 199f), new Vector3(8f, 0.5f, 0.5f), matOrange, secFRoot.transform);
 
         // Checkpoint 6
-        CreatePlatform("Checkpoint_6_Floor", new Vector3(0f, 4f, 210f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
-        CreateCheckpointObject("Checkpoint_6", new Vector3(0f, 5.1f, 210f), checkpointManager, checkpointController, levelRoot.transform);
+        CreatePlatform("Checkpoint_6_Floor", new Vector3(0f, 4f, 211f), new Vector3(8f, 2f, 6f), matBlue, levelRoot.transform);
+        CreateCheckpointObject("Checkpoint_6", new Vector3(0f, 5.1f, 211f), checkpointManager, checkpointController, levelRoot.transform);
 
         // ----------------- SECTION G: FINAL CHALLENGE ZONE -----------------
         GameObject secGRoot = new GameObject("Section_G_FinalChallenge");
@@ -254,26 +260,26 @@ public static class LevelBuilder
         secGRoot.transform.position = new Vector3(0f, 0f, 247.5f);
 
         // Ramp leading down back to Y = -2 level
-        GameObject ramp = CreatePlatform("Final_Ramp", new Vector3(0f, 1.0f, 226.5f), new Vector3(6f, 1f, 25f), matBlue, secGRoot.transform);
+        GameObject ramp = CreatePlatform("Final_Ramp", new Vector3(0f, 1.0f, 227.5f), new Vector3(6f, 1f, 25f), matBlue, secGRoot.transform);
         ramp.transform.rotation = Quaternion.Euler(345f, 0f, 0f); // -15 degrees
 
         // Static narrow path
-        CreatePlatform("Narrow_Path", new Vector3(0f, -2f, 255f), new Vector3(4f, 2f, 30f), matYellow, secGRoot.transform);
+        CreatePlatform("Narrow_Path", new Vector3(0f, -2f, 256f), new Vector3(6f, 2f, 30f), matYellow, secGRoot.transform);
 
-        // Spinning hammer on the narrow path
-        CreateSweeper("Final_Sweeper", new Vector3(0f, 0.5f, 255f), 150f, Vector3.up, matPink, matRed, secGRoot.transform);
+        // Spinning hammer on the narrow path - Slower
+        CreateSweeper("Final_Sweeper", new Vector3(0f, 0.5f, 256f), 40f, Vector3.up, matPink, matRed, secGRoot.transform);
 
         // ----------------- FINISH AREA -----------------
         GameObject finishRoot = new GameObject("Finish_Area");
         finishRoot.transform.SetParent(levelRoot.transform);
-        finishRoot.transform.position = new Vector3(0f, -2f, 281f);
+        finishRoot.transform.position = new Vector3(0f, -2f, 282f);
 
-        CreatePlatform("Finish_Platform", new Vector3(0f, -2f, 281f), new Vector3(14f, 2f, 20f), matGreen, finishRoot.transform);
+        CreatePlatform("Finish_Platform", new Vector3(0f, -2f, 282f), new Vector3(12f, 2f, 20f), matGreen, finishRoot.transform);
 
         // Finish Line Archway
-        GameObject archLeft = CreatePlatform("Arch_Left", new Vector3(-5f, 2.5f, 278f), new Vector3(1f, 7f, 1f), matOrange, finishRoot.transform);
-        GameObject archRight = CreatePlatform("Arch_Right", new Vector3(5f, 2.5f, 278f), new Vector3(1f, 7f, 1f), matOrange, finishRoot.transform);
-        GameObject archTop = CreatePlatform("Arch_Top", new Vector3(0f, 6.5f, 278f), new Vector3(11f, 1f, 1.5f), matYellow, finishRoot.transform);
+        GameObject archLeft = CreatePlatform("Arch_Left", new Vector3(-4f, 2.5f, 279f), new Vector3(1f, 7f, 1f), matOrange, finishRoot.transform);
+        GameObject archRight = CreatePlatform("Arch_Right", new Vector3(4f, 2.5f, 279f), new Vector3(1f, 7f, 1f), matOrange, finishRoot.transform);
+        GameObject archTop = CreatePlatform("Arch_Top", new Vector3(0f, 6.5f, 279f), new Vector3(11f, 1f, 1.5f), matYellow, finishRoot.transform);
 
         // Text display on arch
         GameObject textGo = new GameObject("FinishTextTMP");
@@ -289,16 +295,16 @@ public static class LevelBuilder
         // Finish Line Trigger
         GameObject finishTriggerGo = new GameObject("FinishLineTrigger");
         finishTriggerGo.transform.SetParent(finishRoot.transform);
-        finishTriggerGo.transform.position = new Vector3(0f, 1.5f, 278f);
+        finishTriggerGo.transform.position = new Vector3(0f, 1.5f, 279f);
         BoxCollider finishColl = finishTriggerGo.AddComponent<BoxCollider>();
         finishColl.isTrigger = true;
         finishColl.size = new Vector3(9f, 5f, 1f);
         FinishLine fl = finishTriggerGo.AddComponent<FinishLine>();
 
         // Confetti celebration particles
-        ParticleSystem psLeft = CreateConfettiParticles(new Vector3(-4.5f, 2f, 278f), matPink);
+        ParticleSystem psLeft = CreateConfettiParticles(new Vector3(-3.5f, 2f, 279f), matPink);
         psLeft.transform.SetParent(finishRoot.transform);
-        ParticleSystem psRight = CreateConfettiParticles(new Vector3(4.5f, 2f, 278f), matGreen);
+        ParticleSystem psRight = CreateConfettiParticles(new Vector3(3.5f, 2f, 279f), matGreen);
         psRight.transform.SetParent(finishRoot.transform);
         
         fl.celebrationParticles = new ParticleSystem[] { psLeft, psRight };
